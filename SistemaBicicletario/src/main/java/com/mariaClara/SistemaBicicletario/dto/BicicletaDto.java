@@ -1,23 +1,23 @@
-package com.mariaClara.SistemaBicicletario.DTO;
+package com.mariaClara.SistemaBicicletario.dto;
 
-import com.mariaClara.SistemaBicicletario.Model.StatusBicicleta;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import com.mariaClara.SistemaBicicletario.model.StatusBicicleta;
 
 //@Data
-public class NovaBicicleta {
-    @NotBlank
+public class BicicletaDto {
+    private Long id;
     private String marca;
-    @NotBlank
     private String modelo;
-    @Pattern(regexp = "\\d{4}")
     private String ano;
-    @NotNull
     private Integer numero;
-    @NotNull
     private StatusBicicleta status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getMarca() {
         return marca;

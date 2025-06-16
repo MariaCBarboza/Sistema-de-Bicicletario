@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SistemaBicicletario.iml" filepath="$PROJECT_DIR$/.idea/SistemaBicicletario.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SistemaBicicletario/SistemaBicicletario.iml" filepath="$PROJECT_DIR$/SistemaBicicletario/SistemaBicicletario.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SistemaBicicletario - Copia teste.iml" filepath="$PROJECT_DIR$/.idea/SistemaBicicletario - Copia teste.iml" />
     </modules>
   </component>
 </project>

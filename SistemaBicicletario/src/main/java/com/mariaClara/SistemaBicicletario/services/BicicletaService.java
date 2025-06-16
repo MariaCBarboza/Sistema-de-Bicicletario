@@ -1,10 +1,11 @@
-package com.mariaClara.SistemaBicicletario.Services;
+package com.mariaClara.SistemaBicicletario.services;
 
-import com.mariaClara.SistemaBicicletario.DTO.Bicicleta;
-import com.mariaClara.SistemaBicicletario.DTO.NovaBicicleta;
-import com.mariaClara.SistemaBicicletario.Mapper.BicicletaMapper;
-import com.mariaClara.SistemaBicicletario.Model.BicicletaEntity;
-import com.mariaClara.SistemaBicicletario.Repository.BicicletaRepository;
+import com.mariaClara.SistemaBicicletario.dto.BicicletaDto;
+import com.mariaClara.SistemaBicicletario.dto.NovaBicicletaDto;
+import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
+import com.mariaClara.SistemaBicicletario.mapper.BicicletaMapper;
+import com.mariaClara.SistemaBicicletario.model.BicicletaEntity;
+import com.mariaClara.SistemaBicicletario.repository.BicicletaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class BicicletaService {
         this.repository = repository;
     }
 
-    public Bicicleta cadastrar(NovaBicicleta novaBicicleta){
+    public BicicletaDto cadastrar(NovaBicicletaDto novaBicicleta){
         BicicletaEntity entity = BicicletaMapper.toEntity(novaBicicleta);
         BicicletaEntity salvo = repository.save(entity);
 
@@ -26,16 +27,15 @@ public class BicicletaService {
 
     }
 
-    public List<Bicicleta> listarBicicletas(){
-        List<Bicicleta> lista = repository.findAll()
+    public List<BicicletaDto> listarBicicletas(){
+        return repository.findAll()
                 .stream()
                 .map(entity -> BicicletaMapper.toDto(entity))
                 .collect(Collectors.toList());
-        return lista;
     }
 
 
-    public Bicicleta buscaPorId(Long idBicicleta){
+    public BicicletaDto buscaPorId(Long idBicicleta){
         BicicletaEntity bicicleta = repository.findById(idBicicleta).orElse(null);
         if(bicicleta == null){
             return null;
@@ -44,7 +44,7 @@ public class BicicletaService {
         return BicicletaMapper.toDto(bicicleta);
     }
 
-    public Bicicleta atualizarBicicleta(Long idBicicleta, NovaBicicleta novaBicicleta){
+    public BicicletaDto atualizarBicicleta(Long idBicicleta, NovaBicicletaDto novaBicicleta){
         BicicletaEntity bicicleta = repository.findById(idBicicleta).orElse(null);
         if (bicicleta == null){
             return null;
@@ -62,11 +62,10 @@ public class BicicletaService {
 
     }
 
-    public boolean removeBicicleta(Long id){
+    public void removeBicicleta(Long id){
         if (!repository.existsById(id)){
-            return false;
+           throw new RecursoNaoEncontradoException("Bicicleta com Id " + id + " nao encontrada");
         }
         repository.deleteById(id);
-        return true;
     }
 }

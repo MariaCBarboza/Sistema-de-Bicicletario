@@ -1,4 +1,4 @@
-package com.mariaClara.SistemaBicicletario.Model;
+package com.mariaClara.SistemaBicicletario.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

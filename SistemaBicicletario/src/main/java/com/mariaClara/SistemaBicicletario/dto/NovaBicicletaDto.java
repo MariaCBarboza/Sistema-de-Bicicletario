@@ -1,31 +1,22 @@
-package com.mariaClara.SistemaBicicletario.Model;
+package com.mariaClara.SistemaBicicletario.dto;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import com.mariaClara.SistemaBicicletario.model.StatusBicicleta;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 //@Data
-@Entity
-@Table(name = "bicicletas")
-public class BicicletaEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class NovaBicicletaDto {
+    @NotBlank
     private String marca;
-    private  String modelo;
+    @NotBlank
+    private String modelo;
+    @Pattern(regexp = "\\d{4}")
     private String ano;
+    @NotNull
     private Integer numero;
-
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private StatusBicicleta status;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getMarca() {
         return marca;

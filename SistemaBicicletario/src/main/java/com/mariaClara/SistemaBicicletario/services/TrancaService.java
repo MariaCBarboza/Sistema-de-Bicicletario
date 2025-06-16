@@ -1,10 +1,10 @@
-package com.mariaClara.SistemaBicicletario.Services;
+package com.mariaClara.SistemaBicicletario.services;
 
-import com.mariaClara.SistemaBicicletario.DTO.NovaTrancaDto;
-import com.mariaClara.SistemaBicicletario.DTO.Tranca;
-import com.mariaClara.SistemaBicicletario.Mapper.TrancaMapper;
-import com.mariaClara.SistemaBicicletario.Model.TrancaEntity;
-import com.mariaClara.SistemaBicicletario.Repository.TrancaRepository;
+import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
+import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
+import com.mariaClara.SistemaBicicletario.mapper.TrancaMapper;
+import com.mariaClara.SistemaBicicletario.model.TrancaEntity;
+import com.mariaClara.SistemaBicicletario.repository.TrancaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,22 +18,22 @@ public class TrancaService {
         this.repository = repository;
     }
 
-    public Tranca cadastrar(NovaTrancaDto novaTranca){
+    public TrancaDto cadastrar(NovaTrancaDto novaTranca){
         TrancaEntity entity = TrancaMapper.toEntity(novaTranca);
         TrancaEntity salvo = repository.save(entity);
 
         return TrancaMapper.toDto(salvo);
     }
 
-    public List<Tranca> listarTrancas(){
-        List<Tranca> trancas = repository.findAll()
+    public List<TrancaDto> listarTrancas(){
+        List<TrancaDto> trancas = repository.findAll()
                 .stream()
                 .map(trancaEntity -> TrancaMapper.toDto(trancaEntity))
                 .collect(Collectors.toList());
         return trancas;
     }
 
-    public Tranca buscaPorId(int idTranca){
+    public TrancaDto buscaPorId(int idTranca){
         TrancaEntity tranca = repository.findById(idTranca).orElse(null);
         if(tranca == null){
             return null;
@@ -42,7 +42,7 @@ public class TrancaService {
         return TrancaMapper.toDto(tranca);
     }
 
-    public Tranca editarTranca(int idTranca, NovaTrancaDto novaTranca){
+    public TrancaDto editarTranca(int idTranca, NovaTrancaDto novaTranca){
         TrancaEntity tranca = repository.findById(idTranca).orElse(null);
         if (tranca == null){
             return null;

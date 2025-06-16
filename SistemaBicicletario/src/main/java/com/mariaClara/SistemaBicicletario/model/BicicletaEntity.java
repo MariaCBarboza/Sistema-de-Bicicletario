@@ -1,15 +1,21 @@
-package com.mariaClara.SistemaBicicletario.DTO;
+package com.mariaClara.SistemaBicicletario.model;
 
-import com.mariaClara.SistemaBicicletario.Model.StatusBicicleta;
-import lombok.Data;
+import jakarta.persistence.*;
 
 //@Data
-public class Bicicleta {
+@Entity
+@Table(name = "bicicletas")
+public class BicicletaEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String marca;
-    private String modelo;
+    private  String modelo;
     private String ano;
     private Integer numero;
+
+    @Enumerated(EnumType.STRING)
     private StatusBicicleta status;
 
     public Long getId() {

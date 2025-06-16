@@ -1,10 +1,10 @@
-package com.mariaClara.SistemaBicicletario.DTO;
+package com.mariaClara.SistemaBicicletario.dto;
 
-public class Erro {
+public class ErroDto {
     private String codigo;
     private String menssagem;
 
-    public Erro(String codigo, String menssagem) {
+    public ErroDto(String codigo, String menssagem) {
         this.codigo = codigo;
         this.menssagem = menssagem;
     }

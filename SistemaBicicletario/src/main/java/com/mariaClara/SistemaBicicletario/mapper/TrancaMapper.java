@@ -1,8 +1,8 @@
-package com.mariaClara.SistemaBicicletario.Mapper;
+package com.mariaClara.SistemaBicicletario.mapper;
 
-import com.mariaClara.SistemaBicicletario.DTO.NovaTrancaDto;
-import com.mariaClara.SistemaBicicletario.DTO.Tranca;
-import com.mariaClara.SistemaBicicletario.Model.TrancaEntity;
+import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
+import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
+import com.mariaClara.SistemaBicicletario.model.TrancaEntity;
 
 public class TrancaMapper {
     public static TrancaEntity toEntity(NovaTrancaDto dto){
@@ -18,8 +18,8 @@ public class TrancaMapper {
         return tranca;
     }
 
-    public static Tranca toDto(TrancaEntity trancaEntity){
-        Tranca trancaDto = new Tranca();
+    public static TrancaDto toDto(TrancaEntity trancaEntity){
+        TrancaDto trancaDto = new TrancaDto();
         trancaDto.setId(trancaEntity.getId());
         trancaDto.setNumero(trancaDto.getNumero());
         trancaDto.setLocalizacao(trancaEntity.getLocalizacao());

@@ -1,8 +1,8 @@
-package com.mariaClara.SistemaBicicletario.Mapper;
+package com.mariaClara.SistemaBicicletario.mapper;
 
-import com.mariaClara.SistemaBicicletario.DTO.NovoTotenDto;
-import com.mariaClara.SistemaBicicletario.DTO.Toten;
-import com.mariaClara.SistemaBicicletario.Model.TotenEntity;
+import com.mariaClara.SistemaBicicletario.dto.NovoTotenDto;
+import com.mariaClara.SistemaBicicletario.dto.TotenDto;
+import com.mariaClara.SistemaBicicletario.model.TotenEntity;
 
 public class TotenMapper {
 
@@ -14,8 +14,8 @@ public class TotenMapper {
         return entity;
     }
 
-    public static Toten toDto(TotenEntity entity){
-        Toten toten = new Toten();
+    public static TotenDto toDto(TotenEntity entity){
+        TotenDto toten = new TotenDto();
 
         toten.setId(entity.getId());
         toten.setLocalizacao(entity.getLocalizacao());

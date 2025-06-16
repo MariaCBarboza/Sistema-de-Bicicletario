@@ -1,17 +1,8 @@
-package com.mariaClara.SistemaBicicletario.DTO;
+package com.mariaClara.SistemaBicicletario.dto;
 
-public class Toten {
-    private int id;
+public class NovoTotenDto {
     private String localizacao;
     private String descricao;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getLocalizacao() {
         return localizacao;

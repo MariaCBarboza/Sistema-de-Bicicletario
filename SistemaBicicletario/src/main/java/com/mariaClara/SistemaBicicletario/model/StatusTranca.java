@@ -1,4 +1,4 @@
-package com.mariaClara.SistemaBicicletario.Model;
+package com.mariaClara.SistemaBicicletario.model;
 
 public enum StatusTranca {
     LIVRE,

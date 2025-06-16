@@ -1,6 +1,6 @@
-package com.mariaClara.SistemaBicicletario.Repository;
+package com.mariaClara.SistemaBicicletario.repository;
 
-import com.mariaClara.SistemaBicicletario.Model.BicicletaEntity;
+import com.mariaClara.SistemaBicicletario.model.BicicletaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

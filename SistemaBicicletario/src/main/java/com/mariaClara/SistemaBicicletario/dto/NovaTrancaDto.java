@@ -1,39 +1,19 @@
-package com.mariaClara.SistemaBicicletario.DTO;
+package com.mariaClara.SistemaBicicletario.dto;
 
-import com.mariaClara.SistemaBicicletario.Model.StatusTranca;
+import com.mariaClara.SistemaBicicletario.model.StatusTranca;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public class Tranca {
-    private int id;
-    private int bicicleta;
+public class NovaTrancaDto {
+    @Min(1)
     private int numero;
+    @NotBlank
     private String localizacao;
     private String anoDeFabricacao;
     private String modelo;
+    @NotNull
     private StatusTranca statusTranca;
-
-    public StatusTranca getStatusTranca() {
-        return statusTranca;
-    }
-
-    public void setStatusTranca(StatusTranca statusTranca) {
-        this.statusTranca = statusTranca;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getBicicleta() {
-        return bicicleta;
-    }
-
-    public void setBicicleta(int bicicleta) {
-        this.bicicleta = bicicleta;
-    }
 
     public int getNumero() {
         return numero;
@@ -65,5 +45,13 @@ public class Tranca {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public StatusTranca getStatusTranca() {
+        return statusTranca;
+    }
+
+    public void setStatusTranca(StatusTranca statusTranca) {
+        this.statusTranca = statusTranca;
     }
 }
