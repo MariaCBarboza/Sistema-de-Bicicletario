@@ -1,7 +1,11 @@
 package com.mariaClara.SistemaBicicletario.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class NovoTotenDto {
+    @NotBlank
     private String localizacao;
+    @NotBlank
     private String descricao;
 
     public String getLocalizacao() {

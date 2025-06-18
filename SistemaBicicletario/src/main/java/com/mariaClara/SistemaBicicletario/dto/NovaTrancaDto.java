@@ -10,7 +10,9 @@ public class NovaTrancaDto {
     private int numero;
     @NotBlank
     private String localizacao;
+    @NotBlank
     private String anoDeFabricacao;
+    @NotBlank
     private String modelo;
     @NotNull
     private StatusTranca statusTranca;

@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
                 .findFirst()
                 .orElse("Dados inválidos");
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(new ErroDto("VALIDACAO", mensagem));
+                .body(new ErroDto("DADOS_INVALIDOS", mensagem));
     }
 
     @ExceptionHandler(Exception.class)

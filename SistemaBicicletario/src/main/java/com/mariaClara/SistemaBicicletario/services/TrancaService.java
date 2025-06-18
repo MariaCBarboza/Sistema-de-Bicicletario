@@ -2,6 +2,7 @@ package com.mariaClara.SistemaBicicletario.services;
 
 import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
 import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
+import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.mapper.TrancaMapper;
 import com.mariaClara.SistemaBicicletario.model.TrancaEntity;
 import com.mariaClara.SistemaBicicletario.repository.TrancaRepository;
@@ -18,7 +19,7 @@ public class TrancaService {
         this.repository = repository;
     }
 
-    public TrancaDto cadastrar(NovaTrancaDto novaTranca){
+    public TrancaDto cadastrarTranca(NovaTrancaDto novaTranca){
         TrancaEntity entity = TrancaMapper.toEntity(novaTranca);
         TrancaEntity salvo = repository.save(entity);
 
@@ -26,14 +27,13 @@ public class TrancaService {
     }
 
     public List<TrancaDto> listarTrancas(){
-        List<TrancaDto> trancas = repository.findAll()
+        return repository.findAll()
                 .stream()
                 .map(trancaEntity -> TrancaMapper.toDto(trancaEntity))
                 .collect(Collectors.toList());
-        return trancas;
     }
 
-    public TrancaDto buscaPorId(int idTranca){
+    public TrancaDto buscaTrancaPorId(int idTranca){
         TrancaEntity tranca = repository.findById(idTranca).orElse(null);
         if(tranca == null){
             return null;
@@ -60,11 +60,10 @@ public class TrancaService {
 
     }
 
-    public boolean deletaTranca(int idTranca){
+    public void deletaTranca(int idTranca){
         if (!repository.existsById(idTranca)){
-            return false;
+            throw new RecursoNaoEncontradoException("Tranca com Id " + idTranca + " nao encontrada");
         }
         repository.deleteById(idTranca);
-        return true;
     }
 }

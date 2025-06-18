@@ -1,8 +1,8 @@
 package com.mariaClara.SistemaBicicletario.controllers;
 
-import com.mariaClara.SistemaBicicletario.dto.ErroDto;
 import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
 import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
+import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.services.TrancaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/trancas")
+@RequestMapping("/tranca")
 public class TrancaController {
     private final TrancaService trancaService;
 
@@ -21,53 +21,41 @@ public class TrancaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarTranca(@RequestBody @Valid NovaTrancaDto novaTranca){
-        try{
-            TrancaDto trancaCadastrada = trancaService.cadastrar(novaTranca);
-            return ResponseEntity.status(HttpStatus.OK).body(trancaCadastrada);
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                    .body(new ErroDto("DADOS_INVALIDOS","Nao foi possivel cadastrar a tranca no sistema"));
-        }
+    public ResponseEntity<TrancaDto> cadastrarTranca(@RequestBody @Valid NovaTrancaDto novaTranca){
+        TrancaDto trancaCadastrada = trancaService.cadastrarTranca(novaTranca);
+        return ResponseEntity.status(HttpStatus.OK).body(trancaCadastrada);
 
     }
 
-    @GetMapping
-    public ResponseEntity<?> listarTrancasDoSistema(){
+    @GetMapping("/")
+    public ResponseEntity<List<TrancaDto>> listarTrancasDoSistema(){
         List<TrancaDto> trancas = trancaService.listarTrancas();
         return ResponseEntity.ok(trancas);
     }
 
     @GetMapping("/{idTranca}")
-    public ResponseEntity<?> buscarTrancaPorId(@PathVariable int idTranca){
-        TrancaDto resultado = trancaService.buscaPorId(idTranca);
+    public ResponseEntity<TrancaDto> buscarTrancaPorId(@PathVariable int idTranca){
+        TrancaDto resultado = trancaService.buscaTrancaPorId(idTranca);
 
-        if (resultado != null){
-            return ResponseEntity.ok(resultado);
+        if (resultado == null){
+            throw new RecursoNaoEncontradoException("Tranca com Id " +  idTranca + " nao encontrada");
         }
-
-        ErroDto erro = new ErroDto("TRANCA_NAO_ENCONTRADA", "Tranca com ID " + idTranca + " nao encontrada.");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+        return ResponseEntity.ok(resultado);
     }
 
     @PutMapping("/{idTranca}")
-    public ResponseEntity<?> editarTranca(@PathVariable int idTranca, @RequestBody @Valid NovaTrancaDto novaTrancaDto){
+    public ResponseEntity<TrancaDto> editarTranca(@PathVariable int idTranca, @RequestBody @Valid NovaTrancaDto novaTrancaDto){
         TrancaDto trancaEditada = trancaService.editarTranca(idTranca, novaTrancaDto);
-        if (trancaEditada != null){
-            return ResponseEntity.ok(trancaEditada);
+        if (trancaEditada == null){
+          throw new RecursoNaoEncontradoException("Tranca com ID " + idTranca + " não encontrada.");
         }
 
-        ErroDto erro = new ErroDto("TRANCA_NAO_ENCONTRADA", "Tranca com ID " + idTranca + " não encontrada.");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+        return ResponseEntity.ok(trancaEditada);
     }
 
     @DeleteMapping("/{idTranca}")
-    public ResponseEntity<?> deletarTranca(@PathVariable int idTranca){
-        boolean removida = trancaService.deletaTranca(idTranca);
-        if (removida){
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).
-                body(new ErroDto("TRANCA_NAO_ENCONTRADA", "Tranca com ID " + idTranca + " não encontrada."));
+    public ResponseEntity<Void> deletarTranca(@PathVariable int idTranca){
+       trancaService.deletaTranca(idTranca);
+       return ResponseEntity.ok().build();
     }
 }

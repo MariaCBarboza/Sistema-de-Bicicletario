@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bicicletas")
+@RequestMapping("/bicicleta")
 public class BicicletaController {
     private final BicicletaService bicicletaService;
 

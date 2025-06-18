@@ -3,6 +3,7 @@ package com.mariaClara.SistemaBicicletario.services;
 
 import com.mariaClara.SistemaBicicletario.dto.NovoTotenDto;
 import com.mariaClara.SistemaBicicletario.dto.TotenDto;
+import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.mapper.TotenMapper;
 import com.mariaClara.SistemaBicicletario.model.TotenEntity;
 import com.mariaClara.SistemaBicicletario.repository.TotenRepository;
@@ -19,7 +20,7 @@ public class TotenService {
         this.repository = repository;
     }
 
-    public TotenDto cadastrar(NovoTotenDto novoToten){
+    public TotenDto cadastrarToten(NovoTotenDto novoToten){
         TotenEntity toten = TotenMapper.toEntity(novoToten);
         TotenEntity salvo = repository.save(toten);
 
@@ -27,14 +28,13 @@ public class TotenService {
     }
 
     public List<TotenDto> listarTotens(){
-        List<TotenDto> lista = repository.findAll()
+        return repository.findAll()
                 .stream()
                 .map(entity -> TotenMapper.toDto(entity))
                 .collect(Collectors.toList());
-        return lista;
     }
 
-    public TotenDto atualizarBicicleta(int idToten, NovoTotenDto novoToten){
+    public TotenDto atualizarToten(int idToten, NovoTotenDto novoToten){
         TotenEntity toten = repository.findById(idToten).orElse(null);
         if (toten == null){
             return null;
@@ -48,12 +48,11 @@ public class TotenService {
         return TotenMapper.toDto(totenEntity);
     }
 
-    public boolean deletarToten(int id){
+    public void deletarToten(int id){
         if (!repository.existsById(id)){
-            return false;
+            throw new RecursoNaoEncontradoException("Toten com Id " + id + " nao encontrado");
         }
         repository.deleteById(id);
-        return true;
     }
 
 
