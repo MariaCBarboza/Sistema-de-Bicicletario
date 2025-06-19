@@ -27,6 +27,13 @@ public class GlobalExceptionHandler {
                 .body(new ErroDto("DADOS_INVALIDOS", mensagem));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErroDto> tratarValidacaoManual(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(new ErroDto("DADOS_INVALIDOS", ex.getMessage()));
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErroDto> tratarErroGeral(Exception ex) {
         ex.printStackTrace();

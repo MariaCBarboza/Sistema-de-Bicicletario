@@ -9,7 +9,7 @@ public class BicicletaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String marca;
     private  String modelo;
     private String ano;
@@ -18,11 +18,11 @@ public class BicicletaEntity {
     @Enumerated(EnumType.STRING)
     private StatusBicicleta status;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

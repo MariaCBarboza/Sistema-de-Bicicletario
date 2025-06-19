@@ -4,18 +4,18 @@ import com.mariaClara.SistemaBicicletario.model.StatusBicicleta;
 
 //@Data
 public class BicicletaDto {
-    private Long id;
+    private int id;
     private String marca;
     private String modelo;
     private String ano;
     private Integer numero;
     private StatusBicicleta status;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
