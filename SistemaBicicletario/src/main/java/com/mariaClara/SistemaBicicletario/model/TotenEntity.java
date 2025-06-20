@@ -10,16 +10,16 @@ import jakarta.persistence.Table;
 public class TotenEntity {
     @Id
     @GeneratedValue
-    private int id;
+    private int id_toten;
     private String localizacao;
     private String descricao;
 
     public int getId() {
-        return id;
+        return id_toten;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_toten = id;
     }
 
     public String getLocalizacao() {

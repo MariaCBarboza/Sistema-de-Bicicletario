@@ -1,9 +1,6 @@
 package com.mariaClara.SistemaBicicletario.controllers;
 
-import com.mariaClara.SistemaBicicletario.dto.BicicletaDto;
-import com.mariaClara.SistemaBicicletario.dto.ErroDto;
-import com.mariaClara.SistemaBicicletario.dto.IntegrarBicicletaNaRedeDto;
-import com.mariaClara.SistemaBicicletario.dto.NovaBicicletaDto;
+import com.mariaClara.SistemaBicicletario.dto.*;
 import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.services.BicicletaService;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +72,12 @@ public class BicicletaController {
         BicicletaDto bicicletaDto = bicicletaService.integrarBicicletaNaRede(dto);
         return ResponseEntity.status(HttpStatus.OK).body(bicicletaDto);
 
+    }
+
+    @PostMapping("/retirarDaRede")
+    public ResponseEntity<BicicletaDto> retirarBicicletaDaRede(@RequestBody @Valid RetirarBicicletaDaRedeDto dto){
+        BicicletaDto bicicletaDto = bicicletaService.retirarDaRedeDeTotens(dto);
+        return ResponseEntity.ok(bicicletaDto);
     }
 
 

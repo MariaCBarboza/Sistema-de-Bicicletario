@@ -10,6 +10,7 @@ public class TrancaDto {
     private String anoDeFabricacao;
     private String modelo;
     private StatusTranca statusTranca;
+    private Integer idToten; //campo adicionado para poder associar tranca ao toten nos metodos intregrarTrancaNaRede retirarDaRedeDeTotens
 
     public StatusTranca getStatusTranca() {
         return statusTranca;
@@ -65,5 +66,13 @@ public class TrancaDto {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public Integer getIdToten() {
+        return idToten;
+    }
+
+    public void setIdToten(Integer idToten) {
+        this.idToten = idToten;
     }
 }

@@ -27,6 +27,12 @@ public class TrancaMapper {
         trancaDto.setAnoDeFabricacao(trancaEntity.getAnoDeFabricacao());
         trancaDto.setBicicleta(trancaEntity.getBicicleta());
         trancaDto.setStatusTranca(trancaEntity.getStatusTranca());
+        trancaDto.setIdToten(trancaEntity.getTotenEntity() != null ? trancaEntity.getTotenEntity().getId() : null); //linha adicionada para associar tranca ao toten ao integrar na rede
+        /*if (trancaEntity.getTotenEntity() != null){
+            trancaDto.setIdToten(trancaEntity.getTotenEntity().getId());
+        }else {
+            trancaDto.setIdToten(null);
+        }*/
 
         return trancaDto;
     }

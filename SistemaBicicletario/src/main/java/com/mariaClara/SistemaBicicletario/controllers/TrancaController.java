@@ -1,5 +1,6 @@
 package com.mariaClara.SistemaBicicletario.controllers;
 
+import com.mariaClara.SistemaBicicletario.dto.IntegraTrancaNaRedeDto;
 import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
 import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
 import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
@@ -57,5 +58,10 @@ public class TrancaController {
     public ResponseEntity<Void> deletarTranca(@PathVariable int idTranca){
        trancaService.deletaTranca(idTranca);
        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/integrarNaRede")
+    public ResponseEntity<TrancaDto> integrarNaRedeDeTotens(@RequestBody @Valid IntegraTrancaNaRedeDto dto){
+        TrancaDto tranca = trancaService.integraTrancaNaRede(dto);
+        return ResponseEntity.ok(tranca);
     }
 }

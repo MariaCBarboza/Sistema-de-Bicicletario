@@ -18,6 +18,10 @@ public class TrancaEntity {
     @Enumerated(EnumType.STRING)
     private StatusTranca statusTranca;
 
+    @ManyToOne
+    @JoinColumn(name = "id_toten", nullable = true)
+    private TotenEntity totenEntity;
+
     public int getId() {
         return id;
     }
@@ -72,5 +76,13 @@ public class TrancaEntity {
 
     public void setStatusTranca(StatusTranca statusTranca) {
         this.statusTranca = statusTranca;
+    }
+
+    public TotenEntity getTotenEntity() {
+        return totenEntity;
+    }
+
+    public void setTotenEntity(TotenEntity totenEntity) {
+        this.totenEntity = totenEntity;
     }
 }
