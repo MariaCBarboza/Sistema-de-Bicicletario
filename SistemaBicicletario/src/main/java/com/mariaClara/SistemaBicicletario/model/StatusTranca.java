@@ -5,5 +5,6 @@ public enum StatusTranca {
     OCUPADA,
     NOVA,
     APOSENTADA,
-    EM_REPARO
+    EM_REPARO,
+    REPARO_SOLICITADO, // naõ tinha no swagger mas era necessario para tirar tranca para reparo
 }

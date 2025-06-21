@@ -2,6 +2,7 @@ package com.mariaClara.SistemaBicicletario.controllers;
 
 import com.mariaClara.SistemaBicicletario.dto.IntegraTrancaNaRedeDto;
 import com.mariaClara.SistemaBicicletario.dto.NovaTrancaDto;
+import com.mariaClara.SistemaBicicletario.dto.RetirarTrancaDaRedeDto;
 import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
 import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.services.TrancaService;
@@ -62,6 +63,18 @@ public class TrancaController {
     @PostMapping("/integrarNaRede")
     public ResponseEntity<TrancaDto> integrarNaRedeDeTotens(@RequestBody @Valid IntegraTrancaNaRedeDto dto){
         TrancaDto tranca = trancaService.integraTrancaNaRede(dto);
+        return ResponseEntity.ok(tranca);
+    }
+
+    @PostMapping("/retirarDaRede")
+    public ResponseEntity<TrancaDto> retirarDaRede(@RequestBody @Valid RetirarTrancaDaRedeDto dto){
+        TrancaDto tranca = trancaService.retirarTrancaDaRede(dto);
+        return ResponseEntity.ok(tranca);
+    }
+
+    @PostMapping("/{idTranca}/status/{acao}")
+    public ResponseEntity<TrancaDto> atualizaStatusTranca(@PathVariable int idTranca, @PathVariable String acao){
+        TrancaDto tranca = trancaService.atualizaStatusTranca(idTranca, acao);
         return ResponseEntity.ok(tranca);
     }
 }

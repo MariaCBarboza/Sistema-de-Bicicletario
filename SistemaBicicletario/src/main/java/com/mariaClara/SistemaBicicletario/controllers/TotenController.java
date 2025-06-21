@@ -3,6 +3,7 @@ package com.mariaClara.SistemaBicicletario.controllers;
 import com.mariaClara.SistemaBicicletario.dto.ErroDto;
 import com.mariaClara.SistemaBicicletario.dto.NovoTotenDto;
 import com.mariaClara.SistemaBicicletario.dto.TotenDto;
+import com.mariaClara.SistemaBicicletario.dto.TrancaDto;
 import com.mariaClara.SistemaBicicletario.exception.RecursoNaoEncontradoException;
 import com.mariaClara.SistemaBicicletario.services.TotenService;
 import jakarta.validation.Valid;
@@ -47,5 +48,11 @@ public class TotenController {
     public ResponseEntity<Void> removerToten(@PathVariable int idToten){
         totenService.deletarToten(idToten);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{idToten}/trancas")
+    public ResponseEntity<List<TrancaDto>> listarTrancasDoToten(@PathVariable int idToten){ // quando eu retiro uma tranca da rede ela não esta sendo desassociada do Toten e continua sendo listada
+        List<TrancaDto> trancas = totenService.listarTrancasDoToten(idToten);               // com status APOSENADA ou EM_REPARO  nao sei se devo desassociar
+        return ResponseEntity.ok(trancas);
     }
 }
