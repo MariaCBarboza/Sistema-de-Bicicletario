@@ -43,34 +43,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Analyze with SonarCloud
-
-        # You can pin the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@v2.2.0
-        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
-        env:
-          SONAR_TOKEN: a5098d7f0bf46f57d78a077935e1c9dccf492730  # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+      # 1. PASSO ESSENCIAL: Baixar o código do repositório
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          # Additional arguments for the SonarScanner CLI
-          args:
-            # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
-            # mandatory
-            -Dsonar.projectKey=github-joaocampbell_equipamento
-            -Dsonar.organization=github-joaocampbell
-            # Comma-separated paths to directories containing main source files.
-            #-Dsonar.sources= # optional, default is project base directory
-            # Comma-separated paths to directories containing test source files.
-            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
-            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
-            #-Dsonar.verbose= # optional, default is false
-          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
-          projectBaseDir: .
+          # Baixa todo o histórico do Git. Essencial para o SonarCloud
+          fetch-depth: 0
 
-        # Para Java com Maven
+      # 2. Configurar o ambiente Java (JDK 17)
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-           java-version: '17'
-           distribution: 'temurin'
-      - name: Build with Maven
-        run: mvn verify sonar:sonar -Dsonar.projectKey=github-joaocampbell_equipamento --file pom.xml
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven' # Adiciona cache para acelerar builds futuros
+
+      # 3. Compilar e testar o projeto com Maven
+      #    Este passo gera os arquivos .class e relatórios de teste
+      #    que o SonarScanner precisa para a análise.
+      #    REMOVA a parte "sonar:sonar" daqui.
+      - name: Build and test with Maven
+        # Se o seu pom.xml não estiver na raiz, use 'working-directory'
+        # working-directory: ./caminho-do-seu-projeto 
+        run: mvn -B verify
+
+      # 4. Executar a análise do SonarCloud
+      #    Este passo roda DEPOIS do build e usa a ação oficial.
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          # Token do GitHub é passado automaticamente para a ação
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use o SONAR_TOKEN configurado nos Secrets do repositório
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Passamos as chaves do projeto aqui.
+          # A ação do Sonar é inteligente e vai pegar o resto das
+          # informações do build anterior do Maven.
+          args: >
+            -Dsonar.projectKey=github-joaocampbell_equipamento
+            -Dsonar.organization=github-joaocampbell
