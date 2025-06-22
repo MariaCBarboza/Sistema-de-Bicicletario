@@ -65,3 +65,12 @@ jobs:
             #-Dsonar.verbose= # optional, default is false
           # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
           projectBaseDir: .
+
+        # Para Java com Maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+           java-version: '17'
+           distribution: 'temurin'
+      - name: Build with Maven
+        run: mvn verify sonar:sonar -Dsonar.projectKey=github-joaocampbell_equipamento
