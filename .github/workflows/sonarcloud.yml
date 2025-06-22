@@ -64,7 +64,7 @@ jobs:
       #    REMOVA a parte "sonar:sonar" daqui.
       - name: Build and test with Maven
         # Se o seu pom.xml não estiver na raiz, use 'working-directory'
-        # working-directory: ./caminho-do-seu-projeto 
+        working-directory: ./Sistema-de-Bicicletario
         run: mvn -B verify
 
       # 4. Executar a análise do SonarCloud
